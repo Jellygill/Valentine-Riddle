@@ -16,10 +16,25 @@ export default function Reasons() {
   const [selectedReason, setSelectedReason] = useState<Reason | null>(null);
   const [showSweet, setShowSweet] = useState(false);
   const [completedIds, setCompletedIds] = useState<Set<number>>(new Set());
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+  const [showSecretContent, setShowSecretContent] = useState(false);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
   const handleButtonClick = (reason: Reason) => {
     setSelectedReason(reason);
     setShowSweet(false);
+  };
+
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password.toLowerCase() === "love") { // You can change this to any password
+      setShowSecretContent(true);
+      setIsPasswordModalOpen(false);
+      setPasswordError(false);
+    } else {
+      setPasswordError(true);
+    }
   };
 
   const handleNext = () => {
@@ -68,7 +83,7 @@ export default function Reasons() {
       {/* Reason Buttons Grid */}
       <div className="max-w-4xl mx-auto mb-8 relative z-10">
         <motion.div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-4"
+          className="flex flex-col gap-4 items-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
@@ -80,31 +95,29 @@ export default function Reasons() {
               <motion.button
                 key={reason.id}
                 onClick={() => handleButtonClick(reason)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 data-testid={`button-reason-${reason.id}`}
                 className={`
-                  p-4 md:p-6 border-4 border-black text-center transition-all
+                  w-full max-w-xl p-4 md:p-5 rounded-full border-4 border-white/50 text-left transition-all flex items-center gap-4
                   ${isCompleted 
-                    ? 'bg-green-200 border-green-600' 
+                    ? 'bg-green-400/80 text-white' 
                     : isSelected 
-                      ? 'bg-pink-300 border-pink-600' 
-                      : 'bg-white hover:bg-pink-100'
+                      ? 'bg-pink-400 text-white' 
+                      : 'bg-pink-300/70 text-white hover:bg-pink-400'
                   }
                 `}
                 style={{ 
-                  boxShadow: isCompleted 
-                    ? 'inset -4px -4px rgba(0,100,0,0.3)' 
-                    : 'inset -4px -4px rgba(0,0,0,0.2)',
-                  fontFamily: 'var(--font-pixel)'
+                  fontFamily: 'var(--font-pixel)',
+                  boxShadow: '0 4px 0 rgba(0,0,0,0.1)'
                 }}
               >
-                <div className="text-3xl md:text-4xl mb-2">{reason.emoji}</div>
-                <div className="text-[10px] md:text-xs leading-tight">
+                <span className="text-2xl">{reason.emoji}</span>
+                <span className="text-xs md:text-sm uppercase tracking-wider">
                   {reason.buttonText}
-                </div>
+                </span>
                 {isCompleted && (
-                  <div className="mt-2 text-green-700 text-lg">✓</div>
+                  <span className="ml-auto text-white">✓</span>
                 )}
               </motion.button>
             );
@@ -121,9 +134,9 @@ export default function Reasons() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -30, scale: 0.9 }}
             transition={{ type: "spring", stiffness: 200 }}
-            className="max-w-2xl mx-auto relative z-10"
+            className="max-w-2xl mx-auto relative z-10 mb-8"
           >
-            <PixelCard className="bg-white/95 backdrop-blur-sm text-center space-y-6 py-8">
+            <PixelCard className="bg-white/95 backdrop-blur-sm text-center space-y-6 py-8 border-pink-300">
               <div className="text-5xl mb-4">{selectedReason.emoji}</div>
               
               <h2 className="text-lg md:text-xl font-bold text-primary" style={{ fontFamily: 'var(--font-pixel)' }}>
@@ -135,9 +148,9 @@ export default function Reasons() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="bg-gray-100 border-4 border-dashed border-gray-400 p-4 mx-4"
+                className="bg-gray-50 border-4 border-dashed border-pink-200 p-4 mx-4 rounded-lg"
               >
-                <p className="text-lg md:text-xl font-mono text-gray-700">
+                <p className="text-lg md:text-xl font-mono text-gray-700 italic">
                   "{selectedReason.roastText}"
                 </p>
               </motion.div>
@@ -149,12 +162,12 @@ export default function Reasons() {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="bg-pink-100 border-4 border-pink-400 p-4 mx-4"
+                    className="bg-pink-50 border-4 border-pink-300 p-4 mx-4 rounded-lg"
                   >
-                    <p className="text-lg md:text-xl font-mono text-pink-800">
+                    <p className="text-lg md:text-xl font-mono text-pink-700 font-bold">
                       "{selectedReason.sweetText}"
                     </p>
-                    <div className="mt-2 text-2xl">💕</div>
+                    <div className="mt-2 text-2xl animate-bounce">💕</div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -167,12 +180,14 @@ export default function Reasons() {
                       onClick={handleNext}
                       variant="secondary"
                       data-testid="button-rude"
+                      className="rounded-full"
                     >
                       RUDE! 😤
                     </PixelButton>
                     <PixelButton 
                       onClick={handleButWait}
                       data-testid="button-but-wait"
+                      className="rounded-full"
                     >
                       BUT WAIT... 🥺
                     </PixelButton>
@@ -181,6 +196,7 @@ export default function Reasons() {
                   <PixelButton 
                     onClick={handleNext}
                     data-testid="button-next"
+                    className="rounded-full"
                   >
                     NEXT ➡️
                   </PixelButton>
@@ -191,28 +207,75 @@ export default function Reasons() {
         )}
       </AnimatePresence>
 
-      {/* All Completed Message */}
+      {/* Secret Message Button */}
+      {allCompleted && !selectedReason && !showSecretContent && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mt-12 relative z-10"
+        >
+          <button
+            onClick={() => setIsPasswordModalOpen(true)}
+            className="font-pixel text-xs text-primary underline animate-pulse hover:text-primary/80"
+          >
+            [ CLICK FOR SECRET MESSAGE ]
+          </button>
+        </motion.div>
+      )}
+
+      {/* Password Modal */}
+      {isPasswordModalOpen && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-white p-8 border-8 border-pink-400 max-w-sm w-full text-center space-y-6"
+          >
+            <h3 className="font-pixel text-sm text-primary">ENTER PASSWORD</h3>
+            <form onSubmit={handlePasswordSubmit} className="space-y-4">
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full border-4 border-black p-2 font-mono text-center outline-none focus:border-pink-500"
+                placeholder="???"
+                autoFocus
+              />
+              {passwordError && (
+                <p className="text-red-500 font-pixel text-[10px] animate-shake">WRONG PASSWORD! TRY AGAIN</p>
+              )}
+              <div className="flex gap-2">
+                <PixelButton type="button" variant="secondary" onClick={() => setIsPasswordModalOpen(false)} className="flex-1">CANCEL</PixelButton>
+                <PixelButton type="submit" className="flex-1">SUBMIT</PixelButton>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Secret Content */}
       <AnimatePresence>
-        {allCompleted && !selectedReason && (
+        {showSecretContent && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="max-w-2xl mx-auto relative z-10"
+            className="max-w-2xl mx-auto relative z-10 mt-8"
           >
-            <PixelCard className="bg-pink-200 text-center space-y-6 py-8">
-              <div className="text-6xl">💖</div>
+            <PixelCard className="bg-pink-200 text-center space-y-6 py-8 border-pink-500">
+              <div className="text-6xl animate-bounce">💌</div>
               <h2 className="text-xl md:text-2xl text-primary" style={{ fontFamily: 'var(--font-pixel)' }}>
-                YOU COMPLETED<br/>THE GAME!
+                TOP SECRET!
               </h2>
-              <p className="text-lg font-mono text-pink-800">
-                But the real game is loving you every day... and I'm always winning. 🎮💕
+              <p className="text-lg font-mono text-pink-800 font-bold px-4">
+                "I knew you could do it! You're my favorite human, my best friend, and the person I want to annoy forever. Happy Valentine's Day! I love you more than all the pixels in this game."
               </p>
               <PixelButton 
                 onClick={() => setLocation("/")}
                 variant="secondary"
                 data-testid="button-restart"
+                className="rounded-full"
               >
-                PLAY AGAIN?
+                RESTART?
               </PixelButton>
             </PixelCard>
           </motion.div>
