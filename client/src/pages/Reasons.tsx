@@ -7,10 +7,20 @@ import { useState } from "react";
 import { PixelButton } from "@/components/PixelButton";
 import { useLocation } from "wouter";
 import type { Reason } from "@shared/schema";
+import { STATIC_REASONS } from "@/data/reasons";
 
 export default function Reasons() {
   const { data: reasons, isLoading } = useQuery<Reason[]>({
     queryKey: ["/api/reasons"],
+    queryFn: async () => {
+      try {
+        const res = await fetch("/api/reasons", { credentials: "include" });
+        if (res.ok) return res.json();
+      } catch {
+        // No server (e.g. GitHub Pages) — use static data
+      }
+      return STATIC_REASONS;
+    },
   });
   const [, setLocation] = useLocation();
   const [selectedReason, setSelectedReason] = useState<Reason | null>(null);
@@ -18,7 +28,6 @@ export default function Reasons() {
   const [completedIds, setCompletedIds] = useState<Set<number>>(new Set());
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
-  const [showSecretContent, setShowSecretContent] = useState(false);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
   const handleButtonClick = (reason: Reason) => {
@@ -28,10 +37,10 @@ export default function Reasons() {
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "020326") { 
-      setShowSecretContent(true);
+    if (password === "020326") {
       setIsPasswordModalOpen(false);
       setPasswordError(false);
+      setLocation("/secret");
     } else {
       setPasswordError(true);
     }
@@ -208,7 +217,7 @@ export default function Reasons() {
       </AnimatePresence>
 
       {/* Secret Message Button */}
-      {allCompleted && !selectedReason && !showSecretContent && (
+      {allCompleted && !selectedReason && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -232,6 +241,7 @@ export default function Reasons() {
             className="bg-white p-8 border-8 border-pink-400 max-w-sm w-full text-center space-y-6"
           >
             <h3 className="font-pixel text-sm text-primary">ENTER PASSWORD</h3>
+            <p className="text-xs text-muted-foreground font-mono italic">password hint is the day you accepted me ;&gt;</p>
             <form onSubmit={handlePasswordSubmit} className="space-y-4">
               <input
                 type="password"
@@ -253,35 +263,6 @@ export default function Reasons() {
         </div>
       )}
 
-      {/* Secret Content */}
-      <AnimatePresence>
-        {showSecretContent && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="max-w-2xl mx-auto relative z-10 mt-8"
-          >
-            <PixelCard className="bg-pink-200 text-center space-y-6 py-8 border-pink-500">
-              <div className="text-6xl animate-bounce">💌</div>
-              <h2 className="text-xl md:text-2xl text-primary" style={{ fontFamily: 'var(--font-pixel)' }}>
-                TOP SECRET!
-              </h2>
-              <p className="text-lg font-mono text-pink-800 font-bold px-4">
-                "I knew you could do it! You're my favorite human, my best friend, and the person I want to annoy forever. Happy Valentine's Day! I love you more than all the pixels in this game."
-              </p>
-              <PixelButton 
-                onClick={() => setLocation("/")}
-                variant="secondary"
-                data-testid="button-restart"
-                className="rounded-full"
-              >
-                RESTART?
-              </PixelButton>
-            </PixelCard>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Instructions */}
       {!selectedReason && !allCompleted && (
         <motion.div
@@ -292,6 +273,9 @@ export default function Reasons() {
         >
           <p className="text-sm text-muted-foreground font-mono animate-pulse">
             ↑ Click a button to see the reason ↑
+          </p>
+          <p className="mt-2 text-xs text-muted-foreground/80 font-mono">
+            Complete all to unlock something special 🔐
           </p>
         </motion.div>
       )}

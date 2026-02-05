@@ -18,6 +18,10 @@ export default function Home() {
       <div className="absolute top-10 left-10 animate-float text-primary/20 text-6xl select-none">♥</div>
       <div className="absolute bottom-20 right-10 animate-float text-primary/20 text-8xl select-none" style={{ animationDelay: "1s" }}>♥</div>
       <div className="absolute top-1/2 left-20 animate-float text-accent/30 text-4xl select-none" style={{ animationDelay: "2s" }}>GAME START</div>
+      <div className="absolute top-1/4 right-16 animate-float text-primary/25 text-5xl select-none" style={{ animationDelay: "0.5s" }}>✨</div>
+      <div className="absolute bottom-1/3 left-16 animate-float text-primary/25 text-5xl select-none" style={{ animationDelay: "1.5s" }}>💕</div>
+      <div className="absolute top-20 right-1/4 animate-float text-accent/20 text-3xl select-none" style={{ animationDelay: "2.5s" }}>★</div>
+      <div className="absolute bottom-40 left-1/3 animate-float text-primary/20 text-4xl select-none" style={{ animationDelay: "0.8s" }}>🌸</div>
 
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
@@ -43,6 +47,8 @@ export default function Home() {
                 'This game contains: light roasting...',
                 1000,
                 'This game contains: light roasting, and love I refuse to deny.',
+                800,
+                'Ready to find out why you\'re the best? 👀',
                 () => setShowButton(true),
               ]}
               wrapper="p"
@@ -65,8 +71,11 @@ export default function Home() {
               >
                 I ACCEPT
               </PixelButton>
-              <p className="mt-4 text-xs text-muted-foreground font-mono">
-                * Press start to continue
+              <p className="mt-4 text-xs text-muted-foreground font-mono animate-pulse">
+                * Press start to continue *
+              </p>
+              <p className="mt-1 text-[10px] text-muted-foreground/80 font-mono">
+                (yes, you have to click it)
               </p>
             </motion.div>
           )}
