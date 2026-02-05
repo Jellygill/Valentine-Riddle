@@ -28,7 +28,7 @@ export default function Reasons() {
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.toLowerCase() === "love") { // You can change this to any password
+    if (password === "020326") { 
       setShowSecretContent(true);
       setIsPasswordModalOpen(false);
       setPasswordError(false);
@@ -128,82 +128,82 @@ export default function Reasons() {
       {/* Response Section */}
       <AnimatePresence mode="wait">
         {selectedReason && (
-          <motion.div
-            key={selectedReason.id}
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -30, scale: 0.9 }}
-            transition={{ type: "spring", stiffness: 200 }}
-            className="max-w-2xl mx-auto relative z-10 mb-8"
-          >
-            <PixelCard className="bg-white/95 backdrop-blur-sm text-center space-y-6 py-8 border-pink-300">
-              <div className="text-5xl mb-4">{selectedReason.emoji}</div>
-              
-              <h2 className="text-lg md:text-xl font-bold text-primary" style={{ fontFamily: 'var(--font-pixel)' }}>
-                {selectedReason.buttonText}
-              </h2>
+          <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-background/40 backdrop-blur-[2px]">
+            <motion.div
+              key={selectedReason.id}
+              initial={{ opacity: 0, scale: 0.5, rotate: -5 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              exit={{ opacity: 0, scale: 0.5, rotate: 5 }}
+              transition={{ type: "spring", damping: 15, stiffness: 300 }}
+              className="max-w-xl w-full relative"
+            >
+              <PixelCard className="bg-[#f3e8ff] border-pink-300 shadow-xl py-12 px-8 flex flex-col items-center gap-8 min-h-[400px] justify-center">
+                <div className="flex items-center gap-4 self-start md:self-center">
+                  <span className="text-4xl">{selectedReason.emoji}</span>
+                  <h2 className="text-2xl md:text-3xl text-[#9333ea] uppercase tracking-tighter" style={{ fontFamily: 'var(--font-pixel)' }}>
+                    {selectedReason.buttonText}
+                  </h2>
+                </div>
 
-              {/* Roast Text */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="bg-gray-50 border-4 border-dashed border-pink-200 p-4 mx-4 rounded-lg"
-              >
-                <p className="text-lg md:text-xl font-mono text-gray-700 italic">
-                  "{selectedReason.roastText}"
-                </p>
-              </motion.div>
+                <div className="space-y-4 text-center">
+                  {selectedReason.roastText.split(',').map((line, i) => (
+                    <motion.p 
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 + (i * 0.1) }}
+                      className="text-xl md:text-2xl font-retro text-[#7e22ce] opacity-80"
+                    >
+                      {line.trim()}
+                    </motion.p>
+                  ))}
+                </div>
 
-              {/* Sweet Text (shows after clicking "But wait...") */}
-              <AnimatePresence>
-                {showSweet && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="bg-pink-50 border-4 border-pink-300 p-4 mx-4 rounded-lg"
-                  >
-                    <p className="text-lg md:text-xl font-mono text-pink-700 font-bold">
-                      "{selectedReason.sweetText}"
-                    </p>
-                    <div className="mt-2 text-2xl animate-bounce">💕</div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                {/* Sweet Text Overlay */}
+                <AnimatePresence>
+                  {showSweet && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="absolute inset-0 bg-[#f3e8ff] z-10 flex flex-col items-center justify-center p-8 text-center"
+                    >
+                       <span className="text-5xl mb-6">💖</span>
+                       <p className="text-2xl md:text-3xl font-retro text-pink-700 font-bold leading-tight">
+                        "{selectedReason.sweetText}"
+                      </p>
+                      <PixelButton 
+                        onClick={handleNext}
+                        className="mt-8 rounded-full bg-pink-400 border-white hover:bg-pink-500"
+                      >
+                        NEXT ➡️
+                      </PixelButton>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-              {/* Action Buttons */}
-              <div className="flex flex-wrap justify-center gap-4 pt-4">
-                {!showSweet ? (
-                  <>
-                    <PixelButton 
+                {!showSweet && (
+                  <div className="flex gap-4 mt-4">
+                    <button 
                       onClick={handleNext}
-                      variant="secondary"
-                      data-testid="button-rude"
-                      className="rounded-full"
+                      className="flex items-center gap-2 px-6 py-3 bg-[#fefce8] border-2 border-[#9333ea] rounded-full hover:bg-white transition-colors"
+                      style={{ fontFamily: 'var(--font-retro)', fontSize: '1.25rem' }}
                     >
-                      RUDE! 😤
-                    </PixelButton>
-                    <PixelButton 
+                      <span>😩</span>
+                      <span className="text-[#9333ea]">Unacceptable</span>
+                    </button>
+                    <button 
                       onClick={handleButWait}
-                      data-testid="button-but-wait"
-                      className="rounded-full"
+                      className="flex items-center gap-2 px-6 py-3 bg-[#fefce8] border-2 border-[#9333ea] rounded-full hover:bg-white transition-colors group"
+                      style={{ fontFamily: 'var(--font-retro)', fontSize: '1.25rem' }}
                     >
-                      BUT WAIT... 🥺
-                    </PixelButton>
-                  </>
-                ) : (
-                  <PixelButton 
-                    onClick={handleNext}
-                    data-testid="button-next"
-                    className="rounded-full"
-                  >
-                    NEXT ➡️
-                  </PixelButton>
+                      <span className="group-hover:animate-pulse">💖</span>
+                      <span className="text-[#9333ea]">And yet...</span>
+                    </button>
+                  </div>
                 )}
-              </div>
-            </PixelCard>
-          </motion.div>
+              </PixelCard>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
