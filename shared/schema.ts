@@ -1,12 +1,13 @@
-import { pgTable, text, serial, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, serial } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 export const reasons = pgTable("reasons", {
   id: serial("id").primaryKey(),
-  text: text("text").notNull(),
-  isRoast: boolean("is_roast").default(false),
-  imageUrl: text("image_url"),
+  emoji: text("emoji").notNull(),
+  buttonText: text("button_text").notNull(),
+  roastText: text("roast_text").notNull(),
+  sweetText: text("sweet_text").notNull(),
 });
 
 export const insertReasonSchema = createInsertSchema(reasons).omit({ id: true });

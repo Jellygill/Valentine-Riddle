@@ -21,16 +21,30 @@ export async function seedDatabase() {
   const existingReasons = await storage.getReasons();
   if (existingReasons.length === 0) {
     const seeds = [
-      { text: "Because you're the only person I can stand for more than 4 hours.", isRoast: true },
-      { text: "Your laugh is my favorite sound in the world.", isRoast: false },
-      { text: "You make the absolute best grilled cheese sandwiches.", isRoast: false },
-      { text: "Even when you're hangry, you're still kind of cute.", isRoast: true },
-      { text: "You allow me to steal your french fries without complaining (much).", isRoast: false },
-      { text: "Your morning hair looks like a bird's nest, but a cute bird's nest.", isRoast: true },
-      { text: "You understand my weird references when no one else does.", isRoast: false },
-      { text: "You refuse to kill spiders and make me do it.", isRoast: true },
-      { text: "You're my player 2.", isRoast: false },
-      { text: "Because you're you.", isRoast: false },
+      { 
+        emoji: "😴", 
+        buttonText: "You fall asleep everywhere",
+        roastText: "Mid-movie, mid-conversation, probably mid-sentence.",
+        sweetText: "And somehow, watching you sleep makes my heart soft. You look so peaceful."
+      },
+      { 
+        emoji: "🍟", 
+        buttonText: "You steal my fries",
+        roastText: "Even when you said you weren't hungry. EVERY. SINGLE. TIME.",
+        sweetText: "But honestly? I'd give you all my fries just to see you smile."
+      },
+      { 
+        emoji: "🎮", 
+        buttonText: "You're bad at games",
+        roastText: "Like, impressively bad. How do you even lose at Mario Kart that badly?",
+        sweetText: "But playing with you is still my favorite thing. You're my player 2 forever."
+      },
+      { 
+        emoji: "📱", 
+        buttonText: "You take forever to reply",
+        roastText: "I could literally grow a beard waiting for your texts sometimes.",
+        sweetText: "But when you do reply, even a simple 'hehe' makes my whole day better."
+      },
     ];
 
     for (const seed of seeds) {
