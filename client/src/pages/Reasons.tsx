@@ -8,6 +8,7 @@ import { PixelButton } from "@/components/PixelButton";
 import { useLocation } from "wouter";
 import type { Reason } from "@shared/schema";
 import { STATIC_REASONS } from "@/data/reasons";
+import { attachedAssets } from "@/assets/attached";
 
 export default function Reasons() {
   const { data: reasons, isLoading } = useQuery<Reason[]>({
@@ -275,7 +276,16 @@ export default function Reasons() {
             ↑ Click a button to see the reason ↑
           </p>
           <p className="mt-2 text-xs text-muted-foreground/80 font-mono">
-            Complete all to unlock something special 🔐
+            <span className="inline-flex items-center justify-center gap-2">
+              Complete all to unlock something special
+              <img
+                src={attachedAssets.gifs.lock}
+                alt="Lock"
+                className="w-5 h-5 object-contain inline-block"
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
           </p>
         </motion.div>
       )}

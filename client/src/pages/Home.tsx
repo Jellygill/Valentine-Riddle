@@ -5,6 +5,7 @@ import { PixelButton } from "@/components/PixelButton";
 import { PixelCard } from "@/components/PixelCard";
 import { TypeAnimation } from "react-type-animation";
 import { HeartRain } from "@/components/HeartRain";
+import { attachedAssets } from "@/assets/attached";
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -35,6 +36,22 @@ export default function Home() {
             animate={{ y: 0 }}
             className="mb-8"
           >
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <img
+                src={attachedAssets.gifs.valentinesDay}
+                alt="Valentine's Day"
+                className="w-16 h-16 md:w-20 md:h-20 object-contain pixel-corners border-4 border-primary/40 bg-white/70"
+                loading="eager"
+                decoding="async"
+              />
+              <img
+                src={attachedAssets.images.kissPng}
+                alt="Kiss"
+                className="w-10 h-10 md:w-12 md:h-12 object-contain"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
             <h1 className="text-3xl md:text-5xl font-bold text-primary mb-2 leading-relaxed" style={{ fontFamily: 'var(--font-pixel)' }}>
               VALENTINE'S<br/>QUEST
             </h1>
@@ -69,7 +86,16 @@ export default function Home() {
                 size="lg"
                 className="animate-pulse"
               >
-                I ACCEPT
+                <span className="inline-flex items-center gap-3">
+                  <img
+                    src={attachedAssets.gifs.heart}
+                    alt="Heart"
+                    className="w-6 h-6 object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  I ACCEPT
+                </span>
               </PixelButton>
               <p className="mt-4 text-xs text-muted-foreground font-mono animate-pulse">
                 * Press start to continue *

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { HeartRain } from "@/components/HeartRain";
 import { PixelCard } from "@/components/PixelCard";
 import { PixelButton } from "@/components/PixelButton";
-import { Lock } from "lucide-react";
+import { attachedAssets } from "@/assets/attached";
 
 const STEPS = {
   LOCK: 0,
@@ -51,7 +51,13 @@ export default function SecretSequence() {
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex flex-col items-center gap-3 p-6 rounded-2xl border-4 border-primary bg-primary/10 hover:bg-primary/20 transition-colors"
               >
-                <Lock className="w-16 h-16 text-primary" strokeWidth={2} />
+                <img
+                  src={attachedAssets.gifs.lock}
+                  alt="Lock"
+                  className="w-20 h-20 object-contain"
+                  loading="eager"
+                  decoding="async"
+                />
                 <span className="font-pixel text-sm text-primary">CLICK TO UNLOCK</span>
               </motion.button>
             </PixelCard>
@@ -75,16 +81,12 @@ export default function SecretSequence() {
                 className="flex justify-center min-h-[8rem] items-center"
               >
                 <img
-                  src="https://media.giphy.com/media/3o7TKsQ8MJHyuKkG0c/giphy.gif"
-                  alt="latte"
-                  className="w-32 h-32 object-contain rounded-lg"
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                    const fallback = e.currentTarget.nextElementSibling;
-                    if (fallback) (fallback as HTMLElement).style.display = "block";
-                  }}
+                  src={attachedAssets.gifs.latteArt}
+                  alt="Latte art"
+                  className="w-40 h-40 object-contain rounded-lg border-4 border-amber-200 bg-white/70"
+                  loading="eager"
+                  decoding="async"
                 />
-                <span className="text-8xl hidden" role="img" aria-label="latte">☕</span>
               </motion.div>
               <p className="text-2xl md:text-3xl font-bold text-amber-900" style={{ fontFamily: 'var(--font-pixel)' }}>
                 I like you a latte!
@@ -106,16 +108,16 @@ export default function SecretSequence() {
             className="max-w-lg w-full text-center space-y-8 relative z-10"
           >
             <PixelCard className="bg-red-50/95 border-red-300 py-12 px-8 space-y-6">
-              <motion.span
+              <motion.img
+                src={attachedAssets.gifs.beet}
+                alt="Beet"
                 initial={{ scale: 0, rotate: -10 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: "spring" }}
-                className="text-7xl inline-block"
-                role="img"
-                aria-label="beet"
-              >
-                <span className="text-6xl">🫘</span>
-              </motion.span>
+                className="w-40 h-40 object-contain mx-auto"
+                loading="eager"
+                decoding="async"
+              />
               <p className="text-xl md:text-2xl font-bold text-red-900 leading-tight" style={{ fontFamily: 'var(--font-pixel)' }}>
                 You make my heart skip a beet
               </p>
@@ -136,16 +138,16 @@ export default function SecretSequence() {
             className="max-w-lg w-full text-center space-y-8 relative z-10"
           >
             <PixelCard className="bg-amber-100/95 border-amber-400 py-12 px-8 space-y-6">
-              <motion.span
+              <motion.img
+                src={attachedAssets.gifs.breadLoaf}
+                alt="Bread loaf"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring" }}
-                className="text-7xl"
-                role="img"
-                aria-label="bread"
-              >
-                🍞
-              </motion.span>
+                className="w-40 h-40 object-contain mx-auto"
+                loading="eager"
+                decoding="async"
+              />
               <p className="text-2xl md:text-3xl font-bold text-amber-900" style={{ fontFamily: 'var(--font-pixel)' }}>
                 I loaf you
               </p>
@@ -166,6 +168,13 @@ export default function SecretSequence() {
             className="max-w-lg w-full text-center space-y-8 relative z-10"
           >
             <PixelCard className="bg-pink-50/95 border-pink-400 py-12 px-8 space-y-8">
+              <img
+                src={attachedAssets.gifs.loveLetter}
+                alt="Love letter"
+                className="w-44 h-44 object-contain mx-auto"
+                loading="eager"
+                decoding="async"
+              />
               <p className="text-lg md:text-xl font-bold text-pink-900 leading-tight" style={{ fontFamily: 'var(--font-pixel)' }}>
                 Will you be my Valentines Mary Iris my babi?
               </p>
@@ -227,6 +236,26 @@ function Celebration() {
       className="fixed inset-0 flex flex-col items-center justify-center p-4 z-20 bg-background/95"
     >
       <HeartRain />
+      <div className="fixed inset-0 pointer-events-none opacity-20">
+        <img
+          src={attachedAssets.gifs.valentinesDay}
+          alt=""
+          className="absolute left-6 top-6 w-28 h-28 object-contain"
+          aria-hidden="true"
+        />
+        <img
+          src={attachedAssets.gifs.love}
+          alt=""
+          className="absolute right-6 top-10 w-28 h-28 object-contain"
+          aria-hidden="true"
+        />
+        <img
+          src={attachedAssets.gifs.kiss}
+          alt=""
+          className="absolute left-10 bottom-10 w-28 h-28 object-contain"
+          aria-hidden="true"
+        />
+      </div>
       {Array.from({ length: 50 }).map((_, i) => (
         <motion.div
           key={i}
@@ -251,7 +280,7 @@ function Celebration() {
         initial={{ scale: 0, rotate: -10 }}
         animate={{ scale: 1, rotate: 0 }}
         transition={{ type: "spring", stiffness: 200 }}
-        className="relative z-10 text-center"
+        className="relative z-10 text-center max-w-3xl w-full"
       >
         <p className="text-5xl md:text-7xl font-bold text-primary mb-4" style={{ fontFamily: 'var(--font-pixel)' }}>
           YAY!
@@ -259,6 +288,28 @@ function Celebration() {
         <p className="text-xl md:text-2xl text-foreground font-retro">
           Mary Iris said yes! Happy Valentine&apos;s Day 💕
         </p>
+
+        <div className="mt-8 flex flex-col items-center gap-4">
+          <PixelCard className="bg-white/90 border-primary/40 px-6 py-4 space-y-3 text-left inline-flex items-center gap-3">
+            <img
+              src={attachedAssets.gifs.heart}
+              alt="Heart"
+              className="w-8 h-8 object-contain"
+              loading="eager"
+              decoding="async"
+            />
+            <img
+              src={attachedAssets.images.kissPng}
+              alt="Kiss"
+              className="w-8 h-8 object-contain"
+              loading="eager"
+              decoding="async"
+            />
+            <p className="text-sm font-mono text-muted-foreground">
+              Loot unlocked: infinite dates, fries, and kisses. No extra media required.
+            </p>
+          </PixelCard>
+        </div>
       </motion.div>
     </motion.div>
   );
