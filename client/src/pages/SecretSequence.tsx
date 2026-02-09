@@ -228,10 +228,7 @@ export default function SecretSequence() {
 }
 
 function Celebration() {
-  // Use only dedicated background photos (background pics 1–5)
-  // You can wire them in attachedAssets.images.backgrounds = [bg1, bg2, ...]
-  const backgroundImages =
-    ((attachedAssets as any).images?.backgrounds as string[] | undefined) ?? [];
+  const backgroundImages = attachedAssets.images.backgrounds;
 
   return (
     <motion.div
