@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HeartRain } from "@/components/HeartRain";
 import { PixelCard } from "@/components/PixelCard";
@@ -228,7 +228,18 @@ export default function SecretSequence() {
 }
 
 function Celebration() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const backgroundImages = attachedAssets.images.backgrounds;
+
+  // Stacked pile layout: pics fanned behind each other, overlapping in one cluster
+  const getStackPosition = (idx: number) => {
+    const angle = (idx / backgroundImages.length) * Math.PI * 1.2 - 0.4;
+    const radius = 35 + (idx % 3) * 18;
+    const baseX = Math.cos(angle) * radius + (idx % 2 === 0 ? 8 : -8);
+    const baseY = Math.sin(angle) * radius * 0.7 + (idx % 3) * 6;
+    const rotate = -12 + (idx % 5) * 7 - idx * 2;
+    return { baseX, baseY, rotate };
+  };
 
   return (
     <motion.div
@@ -292,33 +303,38 @@ function Celebration() {
           My babiii saidd yess!! YAYYYYYYYYY! Happy Valentine&apos;s Day!!!
         </p>
 
-        <div className="mt-10 relative h-[420px] md:h-[480px] min-h-[320px]">
+        <div
+          ref={containerRef}
+          className="mt-10 relative w-[320px] h-[280px] md:w-[380px] md:h-[340px] mx-auto"
+        >
           {backgroundImages.map((src: string, idx: number) => {
-            const baseX = (idx % 4) * 130 - 180;
-            const baseY = Math.floor(idx / 4) * 150 - 80;
-            const baseRotate = idx % 2 === 0 ? -6 - idx : 6 + idx;
+            const { baseX, baseY, rotate } = getStackPosition(idx);
+            const z = idx;
 
             return (
               <motion.div
                 key={idx}
-                className="absolute left-1/2 top-1/2 cursor-grab active:cursor-grabbing touch-none"
-                initial={{ scale: 0, x: baseX, y: baseY, rotate: baseRotate }}
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing touch-none will-change-transform"
+                style={{ zIndex: z }}
+                initial={{ scale: 0, x: baseX, y: baseY, rotate }}
                 animate={{ scale: 1 }}
-                whileHover={{ scale: 1.05 }}
-                whileDrag={{ scale: 1.02, cursor: "grabbing" }}
+                whileHover={{ scale: 1.04, zIndex: 99 }}
+                whileDrag={{ scale: 1.02, zIndex: 99, cursor: "grabbing" }}
                 drag
-                dragElastic={0.1}
-                dragMomentum={true}
-                dragConstraints={{ left: -400, right: 400, top: -300, bottom: 300 }}
-                transition={{ type: "spring", stiffness: 140, damping: 18 }}
+                dragElastic={0.05}
+                dragMomentum={false}
+                dragConstraints={containerRef}
+                dragTransition={{ bounceStiffness: 300, bounceDamping: 25 }}
+                transition={{ type: "spring", stiffness: 260, damping: 22 }}
               >
-                <div className="bg-white/95 border-4 border-black/70 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,0.9)] overflow-hidden">
+                <div className="bg-white/95 border-4 border-black/70 rounded-xl shadow-[6px_6px_0_0_rgba(0,0,0,0.15)] overflow-hidden pointer-events-none select-none">
                   <img
                     src={src}
-                    alt="A cute memory"
-                    className="w-40 h-40 md:w-48 md:h-48 object-cover bg-pink-50"
+                    alt="A memory"
+                    className="w-32 h-32 md:w-40 md:h-40 object-cover bg-pink-50"
                     loading="lazy"
                     decoding="async"
+                    draggable={false}
                   />
                 </div>
               </motion.div>
