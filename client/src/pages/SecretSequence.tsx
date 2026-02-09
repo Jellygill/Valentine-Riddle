@@ -287,7 +287,7 @@ function Celebration() {
         </p>
         {/* Edit the celebration message below (e.g. change name or message) */}
         <p className="text-xl md:text-2xl text-foreground font-retro">
-          My babiii saidd yess!! YAYYYYYYYYY! Happy Valentine&apos;s Day
+          My babiii saidd yess!! YAYYYYYYYYY! Happy Valentine&apos;s Day!!!
         </p>
 
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
