@@ -3,6 +3,7 @@ import { useHashLocation } from "wouter/use-hash-location";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
+import { MusicPlayer } from "@/components/MusicPlayer";
 import Home from "@/pages/Home";
 import Reasons from "@/pages/Reasons";
 import SecretSequence from "@/pages/SecretSequence";
@@ -32,6 +33,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Toaster />
       <Router />
+      <MusicPlayer />
     </QueryClientProvider>
   );
 }

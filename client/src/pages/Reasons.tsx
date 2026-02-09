@@ -8,6 +8,11 @@ import { PixelButton } from "@/components/PixelButton";
 import { useLocation } from "wouter";
 import type { Reason } from "@shared/schema";
 import { STATIC_REASONS } from "@/data/reasons";
+import { attachedAssets } from "@/assets/attached";
+import { AnimatedIcon } from "@/components/AnimatedIcon";
+
+const HEART_ICON_SRC = "https://animatedicons.co/get-icon?name=Heart&style=minimalistic&token=f4b598ba-71b5-42b9-8bcd-935650ae714c";
+const HINT_ICON_SRC = "https://animatedicons.co/get-icon?name=Integration&style=minimalistic&token=42ce07e0-80b7-4b00-b076-cd8e661de6d1";
 
 export default function Reasons() {
   const { data: reasons, isLoading } = useQuery<Reason[]>({
@@ -82,9 +87,12 @@ export default function Reasons() {
           transition={{ type: "spring", stiffness: 100 }}
         >
           <PixelCard className="inline-block bg-primary/10 border-primary/50">
-            <h1 className="text-xl md:text-3xl text-primary leading-tight" style={{ fontFamily: 'var(--font-pixel)' }}>
-              REASONS WHY<br />I LOVE YOU
-            </h1>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <AnimatedIcon src={HEART_ICON_SRC} width={80} height={80} />
+              <h1 className="text-xl md:text-3xl text-primary leading-tight text-center" style={{ fontFamily: 'var(--font-pixel)' }}>
+                REASONS WHY<br />I LOVE YOU
+              </h1>
+            </div>
           </PixelCard>
         </motion.div>
       </header>
@@ -240,6 +248,9 @@ export default function Reasons() {
             animate={{ scale: 1, opacity: 1 }}
             className="bg-white p-8 border-8 border-pink-400 max-w-sm w-full text-center space-y-6"
           >
+            <div className="flex justify-center">
+              <AnimatedIcon src={HINT_ICON_SRC} width={64} height={64} />
+            </div>
             <h3 className="font-pixel text-sm text-primary">ENTER PASSWORD</h3>
             <p className="text-xs text-muted-foreground font-mono italic">password hint is the day you accepted me ;&gt;</p>
             <form onSubmit={handlePasswordSubmit} className="space-y-4">
@@ -275,7 +286,16 @@ export default function Reasons() {
             ↑ Click a button to see the reason ↑
           </p>
           <p className="mt-2 text-xs text-muted-foreground/80 font-mono">
-            Complete all to unlock something special 🔐
+            <span className="inline-flex items-center justify-center gap-2">
+              Complete all to unlock something special
+              <img
+                src={attachedAssets.gifs.lock}
+                alt="Lock"
+                className="w-5 h-5 object-contain inline-block"
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
           </p>
         </motion.div>
       )}
