@@ -115,4 +115,9 @@
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
+
+  /* Makes white areas in GIFs blend with background (transparent effect) */
+  .gif-transparent {
+    mix-blend-mode: multiply;
+  }
 }

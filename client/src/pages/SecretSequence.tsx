@@ -54,7 +54,7 @@ export default function SecretSequence() {
                 <img
                   src={attachedAssets.gifs.lock}
                   alt="Lock"
-                  className="w-20 h-20 object-contain"
+                  className="w-20 h-20 object-contain gif-transparent"
                   loading="eager"
                   decoding="async"
                 />
@@ -83,7 +83,7 @@ export default function SecretSequence() {
                 <img
                   src={attachedAssets.gifs.latteArt}
                   alt="Latte art"
-                  className="w-40 h-40 object-contain rounded-lg border-4 border-amber-200 bg-white/70"
+                  className="w-40 h-40 object-contain rounded-lg border-4 border-amber-200 bg-white/70 gif-transparent"
                   loading="eager"
                   decoding="async"
                 />
@@ -114,7 +114,7 @@ export default function SecretSequence() {
                 initial={{ scale: 0, rotate: -10 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: "spring" }}
-                className="w-40 h-40 object-contain mx-auto"
+                className="w-40 h-40 object-contain mx-auto gif-transparent"
                 loading="eager"
                 decoding="async"
               />
@@ -144,7 +144,7 @@ export default function SecretSequence() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring" }}
-                className="w-40 h-40 object-contain mx-auto"
+                className="w-40 h-40 object-contain mx-auto gif-transparent"
                 loading="eager"
                 decoding="async"
               />
@@ -171,7 +171,7 @@ export default function SecretSequence() {
               <img
                 src={attachedAssets.gifs.loveLetter}
                 alt="Love letter"
-                className="w-44 h-44 object-contain mx-auto"
+                className="w-44 h-44 object-contain mx-auto gif-transparent"
                 loading="eager"
                 decoding="async"
               />
@@ -240,19 +240,19 @@ function Celebration() {
         <img
           src={attachedAssets.gifs.valentinesDay}
           alt=""
-          className="absolute left-6 top-6 w-28 h-28 object-contain"
+          className="absolute left-6 top-6 w-28 h-28 object-contain gif-transparent"
           aria-hidden="true"
         />
         <img
           src={attachedAssets.gifs.love}
           alt=""
-          className="absolute right-6 top-10 w-28 h-28 object-contain"
+          className="absolute right-6 top-10 w-28 h-28 object-contain gif-transparent"
           aria-hidden="true"
         />
         <img
           src={attachedAssets.gifs.kiss}
           alt=""
-          className="absolute left-10 bottom-10 w-28 h-28 object-contain"
+          className="absolute left-10 bottom-10 w-28 h-28 object-contain gif-transparent"
           aria-hidden="true"
         />
       </div>
@@ -285,28 +285,64 @@ function Celebration() {
         <p className="text-5xl md:text-7xl font-bold text-primary mb-4" style={{ fontFamily: 'var(--font-pixel)' }}>
           YAY!
         </p>
+        {/* Edit the celebration message below (e.g. change name or message) */}
         <p className="text-xl md:text-2xl text-foreground font-retro">
           Mary Iris said yes! Happy Valentine&apos;s Day 💕
         </p>
 
-        <div className="mt-8 flex flex-col items-center gap-4">
-          <PixelCard className="bg-white/90 border-primary/40 px-6 py-4 space-y-3 text-left inline-flex items-center gap-3">
-            <img
-              src={attachedAssets.gifs.heart}
-              alt="Heart"
-              className="w-8 h-8 object-contain"
-              loading="eager"
-              decoding="async"
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+          <PixelCard className="bg-white/90 border-primary/40 p-5 space-y-4 text-left">
+            <p className="font-pixel text-xs text-primary">MINI SCRAPBOOK</p>
+            <div className="flex items-center gap-3">
+              <img
+                src={attachedAssets.gifs.heart}
+                alt="Heart"
+                className="w-8 h-8 object-contain gif-transparent"
+                loading="eager"
+                decoding="async"
+              />
+              <p className="font-retro text-lg">
+                You unlocked the cutest loot drop.
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <img
+                src={attachedAssets.images.kissPng}
+                alt="Kiss"
+                className="w-10 h-10 object-contain"
+                loading="eager"
+                decoding="async"
+              />
+              <p className="text-sm font-mono text-muted-foreground">
+                (No button dodged. Successfully.)
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {[attachedAssets.images.img1, attachedAssets.images.img2].map((src, idx) => (
+                <div key={src} className="bg-white border-4 border-black/70 p-2 rotate-[-1deg]">
+                  <img
+                    src={src}
+                    alt={`Memory ${idx + 1}`}
+                    className="w-full h-40 object-contain bg-pink-50"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              ))}
+            </div>
+          </PixelCard>
+
+          <PixelCard className="bg-white/90 border-primary/40 p-5 space-y-4 text-left">
+            <p className="font-pixel text-xs text-primary">VIDEO / MUSIC</p>
+            <video
+              src={attachedAssets.video.download}
+              className="w-full h-64 object-contain bg-black/90 border-4 border-black/70"
+              controls
+              playsInline
+              preload="metadata"
             />
-            <img
-              src={attachedAssets.images.kissPng}
-              alt="Kiss"
-              className="w-8 h-8 object-contain"
-              loading="eager"
-              decoding="async"
-            />
-            <p className="text-sm font-mono text-muted-foreground">
-              Loot unlocked: infinite dates, fries, and kisses. No extra media required.
+            <p className="text-xs font-mono text-muted-foreground">
+              Background music: use the button in the corner.
             </p>
           </PixelCard>
         </div>

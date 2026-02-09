@@ -1,7 +1,8 @@
 /**
  * Wrapper for animatedicons.co embed. Uses pink theme.
+ * Auto-plays animation on load by triggering a click after mount.
  */
-import { createElement } from "react";
+import { createElement, useRef, useEffect } from "react";
 
 const PINK_ATTRS = {
   variationThumbColour: "#EC4899",
@@ -32,12 +33,28 @@ export function AnimatedIcon({
   trigger = "click",
   className = "",
 }: AnimatedIconProps) {
-  return createElement("animated-icons", {
-    src,
-    trigger,
-    attributes: JSON.stringify(PINK_ATTRS),
-    height,
-    width,
-    className,
-  });
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+    const icon = wrapper.querySelector("animated-icons") as HTMLElement | null;
+    if (icon) {
+      const t = setTimeout(() => icon.click(), 150);
+      return () => clearTimeout(t);
+    }
+  }, [src]);
+
+  return createElement(
+    "div",
+    { ref: wrapperRef, className: "inline-block", style: { lineHeight: 0 } },
+    createElement("animated-icons", {
+      src,
+      trigger,
+      attributes: JSON.stringify(PINK_ATTRS),
+      height,
+      width,
+      className,
+    })
+  );
 }

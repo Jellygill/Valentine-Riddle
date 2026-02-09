@@ -199,15 +199,7 @@ export default function Reasons() {
                 </AnimatePresence>
 
                 {!showSweet && (
-                  <div className="flex gap-4 mt-4">
-                    <button 
-                      onClick={handleNext}
-                      className="flex items-center gap-2 px-6 py-3 bg-[#fefce8] border-2 border-[#9333ea] rounded-full hover:bg-white transition-colors"
-                      style={{ fontFamily: 'var(--font-retro)', fontSize: '1.25rem' }}
-                    >
-                      <span>😩</span>
-                      <span className="text-[#9333ea]">Unacceptable</span>
-                    </button>
+                  <div className="flex justify-center mt-6">
                     <button 
                       onClick={handleButWait}
                       className="flex items-center gap-2 px-6 py-3 bg-[#fefce8] border-2 border-[#9333ea] rounded-full hover:bg-white transition-colors group"
@@ -291,7 +283,7 @@ export default function Reasons() {
               <img
                 src={attachedAssets.gifs.lock}
                 alt="Lock"
-                className="w-5 h-5 object-contain inline-block"
+                className="w-5 h-5 object-contain inline-block gif-transparent"
                 loading="lazy"
                 decoding="async"
               />
