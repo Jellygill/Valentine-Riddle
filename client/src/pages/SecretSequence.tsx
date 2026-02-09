@@ -176,7 +176,7 @@ export default function SecretSequence() {
                 decoding="async"
               />
               <p className="text-lg md:text-xl font-bold text-pink-900 leading-tight" style={{ fontFamily: 'var(--font-pixel)' }}>
-                Will you be my Valentines Mary Iris my babi?
+                Will you be my Valentines Mary Iris, my babi?
               </p>
               <div className="flex flex-wrap justify-center gap-4 items-center min-h-[120px] relative">
                 <motion.div
@@ -287,7 +287,7 @@ function Celebration() {
         </p>
         {/* Edit the celebration message below (e.g. change name or message) */}
         <p className="text-xl md:text-2xl text-foreground font-retro">
-          Mary Iris said yes! Happy Valentine&apos;s Day 💕
+          My babiii saidd yess!! YAYYYYYYYYY! Happy Valentine&apos;s Day
         </p>
 
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
