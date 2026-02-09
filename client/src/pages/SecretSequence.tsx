@@ -228,12 +228,17 @@ export default function SecretSequence() {
 }
 
 function Celebration() {
+  // Use only dedicated background photos (background pics 1–5)
+  // You can wire them in attachedAssets.images.backgrounds = [bg1, bg2, ...]
+  const backgroundImages =
+    ((attachedAssets as any).images?.backgrounds as string[] | undefined) ?? [];
+
   return (
     <motion.div
       key="celebration"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="fixed inset-0 flex flex-col items-center justify-center p-4 z-20 bg-background/95"
+      className="fixed inset-0 flex flex-col items-center justify-center p-4 z-20 bg-gradient-to-b from-pink-50 via-rose-50 to-pink-100"
     >
       <HeartRain />
       <div className="fixed inset-0 pointer-events-none opacity-20">
@@ -280,7 +285,7 @@ function Celebration() {
         initial={{ scale: 0, rotate: -10 }}
         animate={{ scale: 1, rotate: 0 }}
         transition={{ type: "spring", stiffness: 200 }}
-        className="relative z-10 text-center max-w-3xl w-full"
+        className="relative z-10 text-center max-w-4xl w-full"
       >
         <p className="text-5xl md:text-7xl font-bold text-primary mb-4" style={{ fontFamily: 'var(--font-pixel)' }}>
           YAY!
@@ -290,61 +295,35 @@ function Celebration() {
           My babiii saidd yess!! YAYYYYYYYYY! Happy Valentine&apos;s Day!!!
         </p>
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
-          <PixelCard className="bg-white/90 border-primary/40 p-5 space-y-4 text-left">
-            <p className="font-pixel text-xs text-primary">MINI SCRAPBOOK</p>
-            <div className="flex items-center gap-3">
-              <img
-                src={attachedAssets.gifs.heart}
-                alt="Heart"
-                className="w-8 h-8 object-contain gif-transparent"
-                loading="eager"
-                decoding="async"
-              />
-              <p className="font-retro text-lg">
-                You unlocked the cutest loot drop.
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <img
-                src={attachedAssets.images.kissPng}
-                alt="Kiss"
-                className="w-10 h-10 object-contain"
-                loading="eager"
-                decoding="async"
-              />
-              <p className="text-sm font-mono text-muted-foreground">
-                (No button dodged. Successfully.)
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              {[attachedAssets.images.img1, attachedAssets.images.img2].map((src, idx) => (
-                <div key={src} className="bg-white border-4 border-black/70 p-2 rotate-[-1deg]">
+        <div className="mt-10 relative h-[320px] md:h-[380px]">
+          {backgroundImages.map((src: string, idx: number) => {
+            const baseX = (idx % 4) * 130 - 180;
+            const baseY = Math.floor(idx / 4) * 150 - 80;
+
+            return (
+              <motion.div
+                key={idx}
+                className="absolute left-1/2 top-1/2 cursor-grab active:cursor-grabbing"
+                initial={{ scale: 0, x: 0, y: 0, rotate: 0 }}
+                animate={{ scale: 1, x: baseX, y: baseY, rotate: idx % 2 === 0 ? -6 - idx : 6 + idx }}
+                whileHover={{ scale: 1.05, rotate: 0 }}
+                drag
+                dragElastic={0.3}
+                dragConstraints={{ left: -220, right: 220, top: -170, bottom: 170 }}
+                transition={{ type: "spring", stiffness: 140, damping: 18 }}
+              >
+                <div className="bg-white/95 border-4 border-black/70 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,0.9)] overflow-hidden">
                   <img
                     src={src}
-                    alt={`Memory ${idx + 1}`}
-                    className="w-full h-40 object-contain bg-pink-50"
+                    alt="A cute memory"
+                    className="w-40 h-40 md:w-48 md:h-48 object-cover bg-pink-50"
                     loading="lazy"
                     decoding="async"
                   />
                 </div>
-              ))}
-            </div>
-          </PixelCard>
-
-          <PixelCard className="bg-white/90 border-primary/40 p-5 space-y-4 text-left">
-            <p className="font-pixel text-xs text-primary">VIDEO / MUSIC</p>
-            <video
-              src={attachedAssets.video.download}
-              className="w-full h-64 object-contain bg-black/90 border-4 border-black/70"
-              controls
-              playsInline
-              preload="metadata"
-            />
-            <p className="text-xs font-mono text-muted-foreground">
-              Background music: use the button in the corner.
-            </p>
-          </PixelCard>
+              </motion.div>
+            );
+          })}
         </div>
       </motion.div>
     </motion.div>
