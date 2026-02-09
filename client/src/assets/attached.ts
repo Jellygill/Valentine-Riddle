@@ -17,6 +17,13 @@ import bg2 from "@assets/background pic 2.png";
 import bg3 from "@assets/background pic 3.png";
 import bg4 from "@assets/background pic 4.png";
 import bg5 from "@assets/background pic 5.png";
+import bg6 from "@assets/backround pic 6.png";
+import bg7 from "@assets/Background pic 7.png";
+import bg8 from "@assets/background pic 8.png";
+import bg9 from "@assets/background pic 9.png";
+import bg10 from "@assets/background pic 10.png";
+import bg11 from "@assets/background pic 11.png";
+import bg12 from "@assets/background pic 12.png";
 
 import download from "@assets/Download_1769940663555.mp4";
 import valentineMp3 from "@assets/Laufey - Valentine (Official Audio).mp3";
@@ -40,7 +47,7 @@ export const attachedAssets = {
     kissPng,
     img1,
     img2,
-    backgrounds: [bg1, bg2, bg3, bg4, bg5],
+    backgrounds: [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12],
   },
   video: {
     download,

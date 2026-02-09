@@ -292,21 +292,24 @@ function Celebration() {
           My babiii saidd yess!! YAYYYYYYYYY! Happy Valentine&apos;s Day!!!
         </p>
 
-        <div className="mt-10 relative h-[320px] md:h-[380px]">
+        <div className="mt-10 relative h-[420px] md:h-[480px] min-h-[320px]">
           {backgroundImages.map((src: string, idx: number) => {
             const baseX = (idx % 4) * 130 - 180;
             const baseY = Math.floor(idx / 4) * 150 - 80;
+            const baseRotate = idx % 2 === 0 ? -6 - idx : 6 + idx;
 
             return (
               <motion.div
                 key={idx}
-                className="absolute left-1/2 top-1/2 cursor-grab active:cursor-grabbing"
-                initial={{ scale: 0, x: 0, y: 0, rotate: 0 }}
-                animate={{ scale: 1, x: baseX, y: baseY, rotate: idx % 2 === 0 ? -6 - idx : 6 + idx }}
-                whileHover={{ scale: 1.05, rotate: 0 }}
+                className="absolute left-1/2 top-1/2 cursor-grab active:cursor-grabbing touch-none"
+                initial={{ scale: 0, x: baseX, y: baseY, rotate: baseRotate }}
+                animate={{ scale: 1 }}
+                whileHover={{ scale: 1.05 }}
+                whileDrag={{ scale: 1.02, cursor: "grabbing" }}
                 drag
-                dragElastic={0.3}
-                dragConstraints={{ left: -220, right: 220, top: -170, bottom: 170 }}
+                dragElastic={0.1}
+                dragMomentum={true}
+                dragConstraints={{ left: -400, right: 400, top: -300, bottom: 300 }}
                 transition={{ type: "spring", stiffness: 140, damping: 18 }}
               >
                 <div className="bg-white/95 border-4 border-black/70 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,0.9)] overflow-hidden">
