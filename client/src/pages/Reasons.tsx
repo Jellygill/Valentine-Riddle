@@ -77,7 +77,7 @@ export default function Reasons() {
   const allCompleted = reasons && completedIds.size === reasons.length;
 
   return (
-    <div className="min-h-screen p-4 md:p-8 relative overflow-x-hidden">
+    <div className="min-h-screen p-4 md:p-8 relative overflow-x-hidden bg-gradient-to-b from-transparent via-primary/5 to-primary/10">
       <HeartRain />
 
       <header className="max-w-4xl mx-auto mb-8 text-center relative z-10 pt-8">

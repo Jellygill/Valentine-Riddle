@@ -11,7 +11,7 @@ export default function Home() {
   const [showButton, setShowButton] = useState(false);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-b from-transparent via-primary/5 to-primary/10">
       <HeartRain />
 
       {/* Decorative Background Elements */}

@@ -27,7 +27,7 @@ export default function SecretSequence() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden bg-gradient-to-b from-transparent via-primary/5 to-primary/10">
       <HeartRain />
 
       <AnimatePresence mode="wait">
@@ -248,7 +248,7 @@ function Celebration() {
       key="celebration"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="fixed inset-0 flex flex-col items-center justify-center p-4 z-20 bg-gradient-to-b from-pink-50 via-rose-50 to-pink-100"
+      className="fixed inset-0 flex flex-col items-center justify-center p-4 z-20 bg-[radial-gradient(ellipse_120%_80%_at_50%_0%,rgba(255,182,193,0.6)_0%,rgba(255,218,224,0.3)_40%,transparent_70%),linear-gradient(180deg,rgba(255,240,245,0.98)_0%,rgba(255,228,235,0.98)_50%,rgba(255,218,224,0.95)_100%)]"
     >
       <HeartRain />
       <div className="fixed inset-0 pointer-events-none opacity-20">
@@ -343,6 +343,9 @@ function Celebration() {
             );
           })}
         </div>
+        <p className="mt-4 text-lg md:text-xl text-primary/90 font-retro italic">
+          Our memories together
+        </p>
       </motion.div>
     </motion.div>
   );
