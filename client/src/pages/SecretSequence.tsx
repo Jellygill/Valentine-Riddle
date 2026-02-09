@@ -229,6 +229,7 @@ export default function SecretSequence() {
 
 function Celebration() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const backgroundImages = attachedAssets.images.backgrounds;
 
   // Stacked pile layout: pics fanned behind each other, overlapping in one cluster
@@ -243,6 +244,7 @@ function Celebration() {
 
   return (
     <motion.div
+      ref={viewportRef}
       key="celebration"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -323,7 +325,7 @@ function Celebration() {
                 drag
                 dragElastic={0.05}
                 dragMomentum={false}
-                dragConstraints={containerRef}
+                dragConstraints={viewportRef}
                 dragTransition={{ bounceStiffness: 300, bounceDamping: 25 }}
                 transition={{ type: "spring", stiffness: 260, damping: 22 }}
               >

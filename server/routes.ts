@@ -21,29 +21,29 @@ export async function seedDatabase() {
   const existingReasons = await storage.getReasons();
   if (existingReasons.length === 0) {
     const seeds = [
-      { 
-        emoji: "😴", 
-        buttonText: "You fall asleep everywhere",
-        roastText: "You get so cozy you drift off mid-movie or mid-conversation.",
-        sweetText: "And somehow, watching you sleep makes my heart soft. You look so peaceful."
+      {
+        emoji: "😴",
+        buttonText: "You fall asleep when the cold sneaks in",
+        roastText: "You get so cozy, you drift mid spin.",
+        sweetText: "Watching you sleep feels calm and true, so peaceful somehow my heart warms you.",
       },
-      { 
-        emoji: "🍟", 
-        buttonText: "You steal my fries",
-        roastText: "You always say you're not hungry, then end up eating half my plate.",
-        sweetText: "But honestly? I'd give you all my fries just to see you smile."
+      {
+        emoji: "😔",
+        buttonText: "You ragebait me sometimes",
+        roastText: "You tease me at the funniest times",
+        sweetText: "But when you laugh and start to smile, my heart just melts and stays warm awhile.",
       },
-      { 
-        emoji: "🎮", 
+      {
+        emoji: "🎮",
         buttonText: "You're my player 2",
-        roastText: "We've spent so many hours on the couch with controllers in hand.",
-        sweetText: "Playing with you is still my favorite thing. You're my player 2 forever."
+        roastText: "So many hours, just us two.",
+        sweetText: "Win or lose, no matter the view, every game is better playing with you.",
       },
-      { 
-        emoji: "📱", 
-        buttonText: "You take your time to reply",
-        roastText: "You're not always on your phone, and that's actually rare.",
-        sweetText: "But when you do reply, even a simple 'hehe' makes my whole day better."
+      {
+        emoji: "📱",
+        buttonText: "When you're busy, replies take time",
+        roastText: "Duties first and your phone usage declines.",
+        sweetText: "But one 'hi babiii' when your day is through, turns everything bright just hearing from you.",
       },
     ];
 

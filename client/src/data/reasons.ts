@@ -27,7 +27,7 @@ export const STATIC_REASONS: Reason[] = [
     emoji: "🎮",
     buttonText: "You're my player 2",
     roastText: "So many hours, just us two.",
-    sweetText: "Win or lose, no matter the view,Every game is better playing with you.",
+    sweetText: "Win or lose, no matter the view, every game is better playing with you.",
   },
   {
     id: 4,
